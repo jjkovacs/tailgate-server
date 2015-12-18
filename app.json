@@ -1,0 +1,5 @@
+{
+  "name": "Tailgate Server",
+  "description": "The server component to the Tailgate app",
+  "repository": "https://github.com/jjkovacs/tailgate-server",
+}

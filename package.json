@@ -1,0 +1,23 @@
+{
+  "name": "tailgate-server",
+  "version": "0.0.0",
+  "description": "The server component to the tailgate app.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "ejs": "2.3.3",
+    "express": "4.13.3"
+  },
+  "engines": {
+    "node": "0.12.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jjkovacs/tailgate-server"
+  },
+  "devDependencies": {
+    "require-all": "^2.0.0"
+  }
+}

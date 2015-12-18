@@ -1,2 +1,2 @@
-# tailgate-server
-Server component for the Tailgate app
+# Tailgate Server
+More to come here...
