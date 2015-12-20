@@ -1,3 +1,5 @@
+var BusinessLogicError = require('../error/BusinessLogicError');
+
 function RouteHandler(method, route, callback) {
 	var self = this;
 	
@@ -34,10 +36,14 @@ function RouteHandler(method, route, callback) {
 		return function(req, res) {
 			try {
 				cb(req, res);
-			} catch(error) {
-				console.error(error);
-				if(!res.headersSent) {
-					res.sendStatus(500);
+			} catch(error) {				
+				if(error instanceof BusinessLogicError) {
+					res.status(400).send({error: error.message});
+				} else {
+					console.error(error.message, error.stack);
+					if(!res.headersSent) {
+						res.status(500).send({error: 'Internal server error'});
+					}
 				}
 			}
 		};

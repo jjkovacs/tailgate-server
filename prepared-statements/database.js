@@ -33,11 +33,9 @@ function Database() {
 		if(!preparedStatement) {
 			throw new Error('Invalid argument: \'preparedStatement\' must be a valid prepared statement.');
 		}
-		console.log('foo');
+		
 		return q.promise(function(resolve, reject){
-			console.log('bar');
 			client.query(preparedStatement, function(error, result){
-				console.log('in the callback');
 				if(error) {
 					console.error('A database error occurred--' + error);
 					reject(new Error('Database Error: ' + error));

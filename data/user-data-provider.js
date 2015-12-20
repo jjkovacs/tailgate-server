@@ -1,6 +1,9 @@
 var pg = require('pg'),
 	q = require('q'),
-	ps_getUser = require('../prepared-statements/user/get-user');
+	ps_getUser = require('../prepared-statements/user/get-user'),
+	ps_createUser = require('../prepared-statements/user/create-user'),
+	ps_updateUser = require('../prepared-statements/user/update-user'),
+	ps_deleteUser = require('../prepared-statements/user/delete-user');
 
 function UserDataProvider() {
 	var self = this;
@@ -22,15 +25,24 @@ function UserDataProvider() {
 	}
 	
 	function createUser(user) {
-		throw new Error('Not Implemented');
+		return ps_createUser(user)
+	  		.then(function(result){
+		  		return q.resolve(result.rowCount);
+  			});
 	}
 	
 	function updateUser(user) {
-		throw new Error('Not Implemented');
+		return ps_updateUser(user)
+	  		.then(function(result){
+		  		return q.resolve(result.rowCount);
+  			});
 	}
 	
 	function deleteUser(id) {
-		throw new Error('Not Implemented');
+		return ps_deleteUser(id)
+	  		.then(function(result){
+		  		return q.resolve(result.rowCount);
+  			});
 	}
 }
 

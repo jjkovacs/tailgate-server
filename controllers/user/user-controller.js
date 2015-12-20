@@ -30,45 +30,55 @@ function GET(req, res) {
 function CREATE(req, res) {
   var user = req.body;
   
-  try {
-    var response = userService.addUser(user);
-  } catch(error) {
-    console.log(error);
-    res.sendStatus(500);
-    return;
-  }
+  console.log(req.body);
   
-  if(!response) {
-    res.sendStatus(500);
-    return;
-  }
-  
-  res.json(response);
+  userService.createUser(user)
+    .then(function(response){
+      console.log('response', response);
+      if(response === 1) {
+        res.sendStatus(200);
+      } else {
+        res.sendStatus(500);
+      }
+    }, function(error){
+      console.error(error);
+      res.sendStatus(500);
+    });
 }
 
 function UPDATE(req, res) {
   var userId = req.params.id,
       user = req.body;
+      
+  user.id = userId;
   
-  try {
-    userService.updateUser(userId, user);
-  } catch(error) {
-    console.log(error);
-    res.sendStatus(500); //TODO: update this to send a 404 if the userId doesn't exist
-    return;
-  }
+  userService.updateUser(user)
+    .then(function(response){
+      if(response === 1) {
+        res.sendStatus(200);
+      } else if(response === 0) {
+        res.sendStatus(404);
+      }
+    }, function(error){
+      console.error(error);
+      res.sendStatus(500);
+    });
 }
 
 function DELETE(req, res) {
   var userId = req.params.id;
   
-  try {
-    userService.deleteUser(userId);
-  } catch(error) {
-    console.log(error);
-    res.sendStatus(500); //TODO: update this to send a 404 if the userId doesn't exist
-    return;
-  }
+  userService.deleteUser(userId)
+    .then(function(response){
+      if(response >= 1) {
+        res.sendStatus(200);
+      } else if(response === 0) {
+        res.sendStatus(404);
+      }
+    }, function(error){
+      console.error(error);
+      res.sendStatus(500);
+    });
 }
 
 module.exports = new Controller(baseUrl, handlers);
