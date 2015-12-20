@@ -1,4 +1,8 @@
-function UserDataService() {
+var pg = require('pg'),
+	q = require('q'),
+	ps_getUser = require('../prepared-statements/user/get-user');
+
+function UserDataProvider() {
 	var self = this;
 	
 	// public methods
@@ -11,7 +15,10 @@ function UserDataService() {
 	// private implementation
 	
 	function getUser(id) {
-		throw new Error('Not Implemented');
+	  	return ps_getUser(id)
+	  		.then(function(results){
+		  		return q.resolve(results.rows[0] || null);
+  			});
 	}
 	
 	function createUser(user) {
@@ -27,4 +34,4 @@ function UserDataService() {
 	}
 }
 
-module.exports = new UserDataService();
+module.exports = new UserDataProvider();

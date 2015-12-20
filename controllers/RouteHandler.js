@@ -12,6 +12,8 @@ function RouteHandler(method, route, callback) {
 			callback = route;
 			route = '';
 		}
+		
+		callback = wrapCallback(callback);
 	})();
 	
 	// private implementation
@@ -26,6 +28,19 @@ function RouteHandler(method, route, callback) {
 	
 	function getCallback() {
 		return callback;
+	}
+	
+	function wrapCallback(cb) {
+		return function(req, res) {
+			try {
+				cb(req, res);
+			} catch(error) {
+				console.error(error);
+				if(!res.headersSent) {
+					res.sendStatus(500);
+				}
+			}
+		};
 	}
 }
 

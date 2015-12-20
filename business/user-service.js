@@ -1,3 +1,5 @@
+var userDataProvider = require('../data/user-data-provider');
+
 function UserService() {
 	var self = this;
 	
@@ -11,7 +13,7 @@ function UserService() {
 	// private implementation
 	
 	function getUser(id) {
-		throw new Error('Not Implemented');
+		return userDataProvider.getUser(id);
 	}
 	
 	function createUser(user) {

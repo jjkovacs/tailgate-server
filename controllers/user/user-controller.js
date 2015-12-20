@@ -14,20 +14,17 @@ var handlers = [
 function GET(req, res) {
   var userId = req.params.id;
   
-  try {
-    var response = userService.getUser(userId);
-  } catch(error) {
-    console.log(error);
-    res.sendStatus(500);
-    return;
-  }
-  
-  if(!response) {
-    res.sendStatus(404);
-    return;
-  }
-  
-  res.json(response);
+  userService.getUser(userId)
+    .then(function(response){
+      if(response) {
+        res.json(response);
+      } else {
+        res.sendStatus(404);
+      }
+    }, function(error){
+      console.error(error);
+      res.sendStatus(500);
+    });
 }
 
 function CREATE(req, res) {

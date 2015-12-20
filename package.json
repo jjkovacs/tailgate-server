@@ -9,6 +9,8 @@
   "dependencies": {
     "ejs": "2.3.3",
     "express": "4.13.3",
+    "pg": "4.4.3",
+    "q": "^1.4.1",
     "require-all": "^2.0.0"
   },
   "engines": {
